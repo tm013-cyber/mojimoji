@@ -287,8 +287,7 @@ function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.fl
 function pickN(arr, n) { return shuffle(arr.slice()).slice(0, n); }
 function warn(msg) { const w = $("warn"); w.textContent = msg; w.style.display = "block"; setTimeout(() => w.style.display = "none", 6000); }
 
-/* ===== BGM(4つ) =====
-   bgm/start.mp3 開始画面 / bgm/lab.mp3 ポケモン選択 / bgm/battle.mp3 バトル / bgm/win.mp3 しょうり・ゆうしょう */
+/* ===== BGM(4つ) ===== */
 const BGM_DIR = "bgm/";
 const BGM_EXTS = ["mp3", "m4a", "wav", "ogg"];
 const BGM_VOL = 0.35;
@@ -317,7 +316,6 @@ const bgm = {
     });
     return this.cache[name];
   },
-  /* 最初のタッチの中で、4つすべてのBGMを一度だけ再生→停止して「再生許可」を取る */
   async unlock() {
     if (this.unlocked) return;
     this.unlocked = true;
@@ -402,45 +400,60 @@ const SE = {
 const FX_SE = { electric:"zap", thunder:"zap", dash:"whoosh", iron:"hit", aura:"boom", bone:"hit", punch:"hit", slash:"whoosh", fire:"fire", fireball:"fire", water:"water", wave:"water", bubble:"water", ice:"water", rock:"boom", meteor:"boom", dragon:"fire", beam:"boom", shadow:"boom", ring:"water", arrow:"whoosh", quake:"boom", sound:"boom", hit:"hit", leaf:"whoosh", bite:"hit" };
 
 /* ===== 読み上げ =====
-   speak():読み終わるまで待てる。前の読み上げを打ち切らずに順番に流す(キュー)。
-   speakNow():前の読み上げを打ち切って即読む。 */
+   iPadでは、AudioContext(効果音)・マイク・音声認識を使うと、読み上げ(speechSynthesis)が
+   止まったり、再開しなくなることがある。
+   そこで毎回 cancel→resume してから話させ、開始されなければ短い間隔で再試行する。 */
 let jaVoice = null;
-function pickVoice() { if (!("speechSynthesis" in window)) return; const vs = speechSynthesis.getVoices(); jaVoice = vs.find(v => v.lang === "ja-JP") || vs.find(v => v.lang && v.lang.startsWith("ja")) || null; }
+function pickVoice() {
+  if (!("speechSynthesis" in window)) return;
+  const vs = speechSynthesis.getVoices();
+  jaVoice = vs.find(v => v.lang === "ja-JP") || vs.find(v => v.lang && v.lang.replace("_", "-").startsWith("ja")) || null;
+}
 if ("speechSynthesis" in window) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
 
 function speakRaw(text, rate) {
   return new Promise(res => {
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = "ja-JP"; u.rate = rate || 0.85; u.pitch = 1.15; u.volume = 1;
-    if (jaVoice) u.voice = jaVoice;
-    let done = false;
-    const fin = () => { if (!done) { done = true; res(); } };
-    u.onend = fin; u.onerror = fin;
-    speechSynthesis.speak(u);
-    setTimeout(fin, 7000);
+    if (!("speechSynthesis" in window) || !text) { res(); return; }
+    pickVoice();
+    let started = false, done = false, tries = 0;
+    const fin = () => { if (!done) { done = true; clearTimeout(guard); res(); } };
+    const guard = setTimeout(fin, 9000);
+    const attempt = () => {
+      if (done) return;
+      tries++;
+      try { speechSynthesis.cancel(); speechSynthesis.resume(); } catch (e) {}
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "ja-JP"; u.rate = rate || 0.85; u.pitch = 1.15; u.volume = 1;
+      if (jaVoice) u.voice = jaVoice;
+      u.onstart = () => { started = true; };
+      u.onend = fin; u.onerror = () => { if (!started && tries < 4) setTimeout(attempt, 250); else fin(); };
+      setTimeout(() => {
+        if (done) return;
+        speechSynthesis.speak(u);
+        setTimeout(() => { if (!started && !done && tries < 4) attempt(); }, 1200);
+      }, 120);
+    };
+    attempt();
   });
 }
-/* 打ち切って即読み、読み終わりまで待つ */
-function speak(text, rate = 0.85) {
-  if (!text || !("speechSynthesis" in window)) return Promise.resolve();
-  speechSynthesis.cancel();
-  return new Promise(res => setTimeout(() => speakRaw(text, rate).then(res), 80));
+function speak(text, rate = 0.85) { return speakRaw(text, rate); }
+
+/* 最初のタッチで読み上げエンジンを目覚めさせる */
+let speechUnlocked = false;
+function unlockSpeech() {
+  if (speechUnlocked || !("speechSynthesis" in window)) return;
+  speechUnlocked = true;
+  const u = new SpeechSynthesisUtterance(" ");
+  u.volume = 0; u.lang = "ja-JP";
+  speechSynthesis.speak(u);
 }
-/* 複数の文を、途中で途切れないよう順番に確実に読む */
-async function speakSeq(list, rate = 0.85) {
-  if (!("speechSynthesis" in window)) return;
-  speechSynthesis.cancel();
-  await sleep(80);
-  for (const t of list) { if (t) await speakRaw(t, rate); await sleep(120); }
-}
-document.addEventListener("pointerdown", () => { audio(); bgm.kick(); }, { passive: true });
+document.addEventListener("pointerdown", () => { audio(); unlockSpeech(); bgm.kick(); }, { passive: true });
 document.addEventListener("touchend", () => { bgm.kick(); }, { passive: true });
 
-/* 最初のタッチ用の覆い:タッチ→BGM解錠&開始画面のBGM開始→覆いを消す */
 (function () {
   const cover = $("tapCover");
   const go = () => {
-    audio();
+    audio(); unlockSpeech();
     bgm.unlock();
     bgm.play("start");
     cover.classList.add("hide");
@@ -523,44 +536,63 @@ function scoreFor(topic, alts) {
   return best;
 }
 
+/* ===== マイク・音声認識 =====
+   音量メーター用のマイクは「聞き取りの直前に毎回つなぎ直す」。
+   (iPadでは、音声認識を使うとマイクの音声ストリームが無音になることがあるため) */
 const SR_CLASS = window.SpeechRecognition || window.webkitSpeechRecognition;
-let micStream = null, micCtx = null, micAnalyser = null;
-async function ensureMic() {
-  if (micStream && micStream.active) return true;
+let micStream = null, micCtx = null, micSrc = null, micAnalyser = null;
+
+async function openMeterMic() {
+  closeMeterMic();
   try {
     micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    micCtx = micCtx || new (window.AudioContext || window.webkitAudioContext)();
+    micCtx = new (window.AudioContext || window.webkitAudioContext)();
     if (micCtx.state === "suspended") await micCtx.resume();
-    const src = micCtx.createMediaStreamSource(micStream);
-    micAnalyser = micCtx.createAnalyser(); micAnalyser.fftSize = 512; src.connect(micAnalyser);
+    micSrc = micCtx.createMediaStreamSource(micStream);
+    micAnalyser = micCtx.createAnalyser(); micAnalyser.fftSize = 512;
+    micSrc.connect(micAnalyser);
     return true;
-  } catch (e) { warn("マイクの きょかが ひつようです: " + e.name); return false; }
+  } catch (e) {
+    micAnalyser = null;
+    return false;
+  }
+}
+function closeMeterMic() {
+  try { if (micSrc) micSrc.disconnect(); } catch (e) {}
+  try { if (micStream) micStream.getTracks().forEach(t => t.stop()); } catch (e) {}
+  try { if (micCtx) micCtx.close(); } catch (e) {}
+  micStream = null; micCtx = null; micSrc = null; micAnalyser = null;
 }
 
 function listenOnce(meterEl, onInterim) {
   return new Promise(async resolve => {
     if (!SR_CLASS) { resolve({ alts: [], peak: 0, error: "unsupported" }); return; }
-    if ("speechSynthesis" in window) speechSynthesis.cancel();
+    try { speechSynthesis.cancel(); } catch (e) {}
     bgm.pauseMic();
-    const ok = await ensureMic();
-    if (!ok) { bgm.resumeMic(); resolve({ alts: [], peak: 0, error: "mic" }); return; }
-    const buf = new Uint8Array(micAnalyser.fftSize);
+
+    /* 先にメーター用マイクを開く(許可は一度出れば以後は出ない)。失敗しても認識は続ける */
+    const meterOk = await openMeterMic();
+    const buf = meterOk ? new Uint8Array(micAnalyser.fftSize) : null;
     let peak = 0, raf = 0, running = true;
     const loop = () => {
       if (!running) return;
-      micAnalyser.getByteTimeDomainData(buf);
-      let mx = 0; for (let i = 0; i < buf.length; i++) mx = Math.max(mx, Math.abs(buf[i] - 128));
-      const v = Math.min(100, mx / 128 * 160); peak = Math.max(peak, v);
-      if (meterEl) meterEl.style.width = v + "%";
+      if (micAnalyser && buf) {
+        micAnalyser.getByteTimeDomainData(buf);
+        let mx = 0; for (let i = 0; i < buf.length; i++) mx = Math.max(mx, Math.abs(buf[i] - 128));
+        const v = Math.min(100, mx / 128 * 160); peak = Math.max(peak, v);
+        if (meterEl) meterEl.style.width = v + "%";
+      }
       raf = requestAnimationFrame(loop);
     };
     loop();
+
     const rec = new SR_CLASS();
     rec.lang = "ja-JP"; rec.continuous = false; rec.interimResults = true; rec.maxAlternatives = 5;
     let finalAlts = [], err = null, finished = false;
     const finish = () => {
       if (finished) return; finished = true; running = false; cancelAnimationFrame(raf);
       if (meterEl) meterEl.style.width = "0%";
+      closeMeterMic();
       setTimeout(() => bgm.resumeMic(), 300);
       resolve({ alts: finalAlts, peak, error: err });
     };
@@ -577,7 +609,6 @@ function listenOnce(meterEl, onInterim) {
   });
 }
 
-/* 声で言うチャレンジ(スロット枠と技の表示はそのまま。マイクボタンで言う) */
 async function voiceChallenge(panel, topic, askText) {
   panel.root.classList.add("show");
   panel.ask.textContent = askText;
@@ -660,21 +691,21 @@ const batPanel = { root: $("batVoice"), ask: $("batAsk"), mic: $("batMic"), mete
 $("startBtn").onclick = () => {
   if (starting) return;
   starting = true;
-  audio(); SE.fanfare();
+  audio(); unlockSpeech(); SE.fanfare();
   setTimeout(() => { starting = false; newGame(); }, 1300);
 };
 $("againBtn").onclick = () => { SE.tap(); show("start"); };
 
 function newGame() { stage = 0; myMain = null; nextStage(); }
 
-/* しょうり画面を出し、「つぎへ」で進む */
 function showWin(mine, foe) {
   return new Promise(async resolve => {
     $("winSub").textContent = mine.name + " が " + foe.name + " に かったよ!";
     await fillPokeEl($("winPoke"), mine);
     show("win");
     $("nextBtn").textContent = stage >= STAGES ? "ゆうしょうへ ▶" : "つぎへ ▶";
-    SE.fanfare(); confetti(); speak("しょうり! " + foe.name + "に かった!");
+    SE.fanfare(); confetti();
+    setTimeout(() => speak("しょうり! " + foe.name + "に かった!"), 700);
     const h = () => { $("nextBtn").removeEventListener("click", h); SE.tap(); resolve(); };
     $("nextBtn").addEventListener("click", h);
   });
@@ -756,9 +787,10 @@ async function labSelect(cands) {
   items[chosenIdx].classList.add("picked");
   labPanel.root.classList.remove("show");
   SE.pop();
-  /* 「きみにきめた!」を最後まで確実に読んでから先へ進む */
+  /* 音声認識の直後は読み上げが止まりやすいので、少し待ってから読む */
+  await sleep(700);
   await speak(picked.name + "! きみに きめた!");
-  await sleep(500);
+  await sleep(400);
   return picked;
 }
 
@@ -788,9 +820,9 @@ async function battle(mine, foe) {
   const vs = $("versus");
   vs.innerHTML = me.name + "<br>VS<br>" + en.name;
   vs.classList.add("show"); SE.boom();
-  /* 「〇〇 たい △△」を最後まで確実に読む */
+  await sleep(300);
   await speak(me.name + " たい " + en.name);
-  await sleep(600);
+  await sleep(500);
   vs.classList.remove("show");
   $("playerPoke").classList.add("enter"); $("enemyPoke").classList.add("enter");
   await say("あいての " + en.name + " が あらわれた!", 1500);
@@ -829,7 +861,6 @@ async function battle(mine, foe) {
   return true;
 }
 
-/* スロット:停止後も枠と技の表示を残す(ナレーションなし) */
 async function slotSelect(moves) {
   const wrap = $("slotWrap"), reel = $("slotReel"), win = $("slotWin");
   const finalIdx = Math.floor(Math.random() * moves.length);
@@ -1046,7 +1077,8 @@ function confetti() {
 async function showResult() {
   show("result");
   $("resSub").textContent = myMain.name + " と ぜんぶ かったね!";
-  SE.fanfare(); confetti(); speak("ゆうしょう! おめでとう!");
+  SE.fanfare(); confetti();
+  setTimeout(() => speak("ゆうしょう! おめでとう!"), 700);
   setTimeout(confetti, 1500); setTimeout(confetti, 3000);
 }
 </script>
