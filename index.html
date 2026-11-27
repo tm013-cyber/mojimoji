@@ -16,7 +16,6 @@
   .btn.red { background: #e53935; } .btn.blue { background: #1e88e5; } .btn.gray { background: #78909c; } .btn.gold { background: #f9a825; color: #3e2723; }
   #warn { position: absolute; top: 0; left: 0; right: 0; z-index: 999; background: #b71c1c; color: #fff; font-size: 15px; text-align: center; padding: 6px; display: none; }
 
-  /* ===== スタート画面 ===== */
   #start { background: radial-gradient(circle at 50% 40%, #1a237e 0%, #0b0f2a 70%); }
   #start canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
   #startBox { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 34px; z-index: 5; }
@@ -29,7 +28,6 @@
   @keyframes pulse { 50% { transform: scale(1.07); } }
   #startSub { font-size: 18px; color: #90a4ae; }
 
-  /* ===== 研究室 ===== */
   #lab { background: linear-gradient(#cfd8dc 0%, #eceff1 55%, #90a4ae 55%, #78909c 100%); color: #263238; }
   #lab .title { position: absolute; top: 10px; left: 0; right: 0; text-align: center; font-size: min(5vw, 5vh); font-weight: 900; color: #1a237e; text-shadow: 0 2px 0 #fff; z-index: 20; }
   #lab .stage { position: absolute; top: 4%; left: 0; right: 0; text-align: center; font-size: 18px; color: #455a64; z-index: 20; margin-top: min(6vw, 6vh); }
@@ -47,14 +45,13 @@
   .cover.machine::before { content: ""; position: absolute; left: 12%; top: 14%; width: 76%; height: 26%; background: #00e676; border-radius: 6px; box-shadow: 0 0 14px #00e676; animation: blinkm 1.2s infinite; }
   .cover.machine::after { content: ""; position: absolute; left: 14%; bottom: 14%; width: 22%; aspect-ratio: 1; background: #ff5252; border-radius: 50%; box-shadow: 40px 0 0 #ffee58, 80px 0 0 #42a5f5; }
   @keyframes blinkm { 50% { opacity: .4; } }
-  .labItem .tag { position: absolute; left: 0; right: 0; bottom: -2%; text-align: center; z-index: 5; font-size: min(5vw, 6vh); font-weight: 900; color: #fff; text-shadow: 0 3px 0 #1a237e, 0 0 10px #1a237e; }
+  .labItem .tag { position: absolute; left: -25%; right: -25%; bottom: -2%; text-align: center; z-index: 5; font-size: min(4.8vw, 5.6vh); font-weight: 900; color: #fff; white-space: nowrap; text-shadow: 0 3px 0 #1a237e, 0 0 10px #1a237e; }
   .labItem.sway { animation: swayLab 3s ease-in-out infinite; }
   @keyframes swayLab { 50% { transform: translateY(-4px); } }
   .labItem.picked .peek { transition: bottom .6s, height .6s; bottom: 40%; height: min(26vw, 32vh); }
   #labTable { position: absolute; left: 0; right: 0; bottom: 0; height: 12%; background: linear-gradient(#5d4037, #3e2723); z-index: 3; }
   #labBeaker { position: absolute; bottom: 10%; right: 4%; font-size: min(8vw, 9vh); z-index: 4; }
 
-  /* ===== 音声パネル(共通) ===== */
   .voicePanel { position: absolute; left: 0; right: 0; bottom: 0; z-index: 60; padding: 10px 14px 16px; background: linear-gradient(transparent, rgba(0,0,0,.75) 30%); display: none; text-align: center; }
   .voicePanel.show { display: block; }
   .voicePanel .ask { font-size: min(5vw, 5vh); font-weight: 900; color: #ffeb3b; text-shadow: 0 3px 0 #000; margin-bottom: 6px; min-height: 1.3em; }
@@ -68,7 +65,6 @@
   .learn { margin-top: 4px; font-size: 12px; color: #b0bec5; }
   .learn button { font-size: 12px; margin-left: 6px; padding: 3px 8px; border-radius: 8px; border: 1px solid #78909c; background: rgba(255,255,255,.12); color: #fff; }
 
-  /* ===== バトル ===== */
   #battle { background: linear-gradient(#5ec8ff 0%, #bfeaff 45%, #8bd45a 45%, #4e9e2f 100%); }
   #battle .bg-ground { position: absolute; left: 0; right: 0; top: 45%; bottom: 0; background: radial-gradient(ellipse at 28% 78%, rgba(0,0,0,.18), transparent 30%), radial-gradient(ellipse at 74% 38%, rgba(0,0,0,.18), transparent 26%); }
   .poke { position: absolute; display: flex; align-items: center; justify-content: center; font-size: min(18vw, 22vh); transition: transform .15s; }
@@ -91,15 +87,13 @@
   #battleMsg { position: absolute; left: 4%; right: 4%; bottom: 190px; z-index: 30; min-height: 62px; background: rgba(0,0,0,.72); border: 3px solid #fff; border-radius: 14px; padding: 12px 18px; font-size: min(4vw, 4.4vh); font-weight: bold; text-align: center; display: none; }
   #battleMsg.show { display: block; }
 
-  /* スロット */
-  #slotWrap { position: absolute; left: 50%; bottom: 190px; transform: translateX(-50%); z-index: 40; display: none; flex-direction: column; align-items: center; gap: 6px; }
+  #slotWrap { position: absolute; left: 50%; bottom: 215px; transform: translateX(-50%); z-index: 70; display: none; flex-direction: column; align-items: center; gap: 6px; }
   #slotWrap.show { display: flex; }
   #slotWin { width: min(72vw, 560px); height: min(11vh, 76px); background: #fff; border: 5px solid #ffb300; border-radius: 16px; overflow: hidden; position: relative; box-shadow: 0 0 22px rgba(255,179,0,.8); }
   #slotReel { position: absolute; left: 0; right: 0; top: 0; }
-  #slotReel div { height: min(11vh, 76px); display: flex; align-items: center; justify-content: center; font-size: min(5.4vw, 5.4vh); font-weight: 900; color: #263238; white-space: nowrap; }
+  #slotReel div { box-sizing: border-box; display: flex; align-items: center; justify-content: center; font-size: min(5.4vw, 5.4vh); font-weight: 900; color: #263238; white-space: nowrap; }
   #slotLabel { font-size: 18px; font-weight: bold; text-shadow: 0 2px 0 #000; }
 
-  /* 技演出 */
   #fxLayer { position: absolute; inset: 0; pointer-events: none; z-index: 35; overflow: hidden; }
   #fxCanvas { position: absolute; inset: 0; width: 100%; height: 100%; }
   #moveName { position: absolute; left: 0; right: 0; top: 40%; text-align: center; font-size: min(8vw, 9vh); font-weight: 900; color: #fff; text-shadow: 0 0 14px #ff6f00, 0 6px 0 #b71c1c; z-index: 38; display: none; }
@@ -109,14 +103,21 @@
   #dmgText.show { display: block; animation: dmgUp 1s forwards; }
   @keyframes dmgUp { 0% { transform: translateY(0) scale(.5); opacity: 0; } 20% { transform: translateY(-10px) scale(1.3); opacity: 1; } 100% { transform: translateY(-60px) scale(1); opacity: 0; } }
 
-  /* 結果 */
+  /* しょうり画面 */
+  #win { background: radial-gradient(circle at 50% 40%, #fff59d, #ff9800 75%); text-align: center; }
+  #winBox { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; z-index: 5; }
+  #winTitle { font-size: min(12vw, 14vh); font-weight: 900; color: #fff; text-shadow: 0 6px 0 #d84315, 0 0 24px #fff; animation: glow 1.4s infinite alternate; }
+  #winPoke { width: min(34vw, 40vh); height: min(34vw, 40vh); display: flex; align-items: center; justify-content: center; font-size: min(22vw, 26vh); animation: trophy 1.6s ease-in-out infinite; }
+  #winPoke img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 20px #fff); }
+  #winSub { font-size: min(4.4vw, 5vh); font-weight: bold; color: #4e342e; background: rgba(255,255,255,.7); border-radius: 18px; padding: 6px 26px; }
+
   #result { background: radial-gradient(circle at 50% 40%, #ffd54f, #ff6f00 70%); text-align: center; }
-  #resultBox { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
+  #resultBox { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; z-index: 5; }
   #resTitle { font-size: min(9vw, 11vh); font-weight: 900; color: #fff; text-shadow: 0 6px 0 #b71c1c, 0 0 20px #fff; }
   #trophy { font-size: min(30vw, 36vh); animation: trophy 1.6s ease-in-out infinite; filter: drop-shadow(0 0 30px #fff59d); }
   @keyframes trophy { 50% { transform: translateY(-14px) scale(1.06) rotate(3deg); } }
   #resSub { font-size: min(4.6vw, 5vh); font-weight: bold; color: #4e342e; }
-  .confetti { position: absolute; top: -20px; width: 14px; height: 14px; animation: fall linear forwards; z-index: 5; pointer-events: none; }
+  .confetti { position: absolute; top: -20px; width: 14px; height: 14px; animation: fall linear forwards; z-index: 1; pointer-events: none; }
   @keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
 
   #versus { position: absolute; inset: 0; z-index: 50; display: none; background: radial-gradient(circle, #ff1744 0%, #000 80%); align-items: center; justify-content: center; font-size: min(14vw, 16vh); font-weight: 900; color: #fff; text-shadow: 0 0 30px #fff; text-align: center; }
@@ -127,7 +128,6 @@
 <body>
 <div id="warn"></div>
 
-<!-- スタート -->
 <section id="start" class="screen show">
   <canvas id="stormCv"></canvas>
   <div id="startBox">
@@ -138,7 +138,6 @@
   </div>
 </section>
 
-<!-- 研究室(選択) -->
 <section id="lab" class="screen">
   <div class="title">どの ポケモンで たたかう?</div>
   <div class="stage" id="labStage"></div>
@@ -153,7 +152,6 @@
   </div>
 </section>
 
-<!-- バトル -->
 <section id="battle" class="screen">
   <div class="bg-ground"></div>
   <div id="stageTag"></div>
@@ -175,7 +173,15 @@
   <div id="versus"></div>
 </section>
 
-<!-- 結果 -->
+<section id="win" class="screen">
+  <div id="winBox">
+    <div id="winTitle">しょうり!</div>
+    <div id="winPoke"></div>
+    <div id="winSub"></div>
+    <button class="btn gold" id="nextBtn" style="font-size:28px">つぎへ ▶</button>
+  </div>
+</section>
+
 <section id="result" class="screen">
   <div id="resultBox">
     <div id="resTitle">ゆうしょう!</div>
@@ -186,11 +192,6 @@
 </section>
 
 <script>
-/* ================================================================
-   データ
-   画像:pokemon/<id>.png  (例 pokemon/pikachu.png)。無い場合は絵文字を表示
-   hp:ポケモンのHP / moves:[名前, ダメージ, 演出, 別名...]
-   ================================================================ */
 const PLAYER_POOL = [
   { id:"pikachu", name:"ピカチュウ", emo:"⚡", hp:120, alias:["ぴかちゅう","ピカチュー","ピカチュ"], moves:[
     ["でんきショック",18,"electric","電気ショック","でんきしょっく"],
@@ -259,35 +260,91 @@ const ENEMY_POOL = [
   { id:"eternatus", name:"ムゲンダイナ", emo:"🌌", hp:100, alias:["むげんだいな","ムゲンダイナ","無限ダイナ"], moves:[["ダイマックスほう",15,"beam","ダイマックス砲","ダイマックスほう"],["どくどく",8,"shadow","毒々","どくどく"]] },
   { id:"dragonite", name:"カイリュー", emo:"🐲", hp:90, alias:["かいりゅー","カイリュー","会リュー"], moves:[["りゅうのいかり",12,"dragon","竜の怒り","りゅうのいかり"],["げきりん",14,"dragon","逆鱗","げきりん"]] },
   { id:"zoroark", name:"ゾロアーク", emo:"🦊", hp:75, alias:["ぞろあーく","ゾロアーク","ゾロ明く"], moves:[["あくのはどう",12,"shadow","悪の波動","あくのはどう"],["ナイトバースト",13,"shadow","ナイトバースト"]] },
-  { id:"dewpider", name:"ウミディダ", emo:"🕷️", hp:55, alias:["うみでぃだ","ウミディダ","海ディダ"], moves:[["バブルこうせん",8,"bubble","バブル光線","バブルこうせん"],["いとをはく",6,"hit","糸を吐く","いとをはく"]] },
+  { id:"dewpider", name:"ウミディグダ", emo:"🪱", hp:55, alias:["うみでぃぐだ","ウミディグダ","海ディグダ","うみでぃぐた","ウミディグタ"], moves:[["あなをほる",8,"quake","穴を掘る","あなをほる"],["うずしお",8,"wave","渦潮","うずしお"]] },
   { id:"kartana", name:"テッカグヤ", emo:"🚀", hp:85, alias:["てっかぐや","テッカグヤ","鉄かぐや","鉄カグヤ"], moves:[["ミサイルばり",11,"arrow","ミサイル針","ミサイルばり"],["ジャイロボール",12,"iron","ジャイロボール"]] },
   { id:"wishiwashi", name:"ヨワシ", emo:"🐟", hp:50, alias:["よわし","ヨワシ","弱し","弱い"], moves:[["ねらいうち",7,"hit","狙い撃ち","ねらいうち"],["うずしお",8,"wave","渦潮","うずしお"]] },
   { id:"primeape", name:"オコリザル", emo:"🐵", hp:70, alias:["おこりざる","オコリザル","怒り猿"], moves:[["けたぐり",11,"punch","蹴手繰り","けたぐり"],["からてチョップ",11,"punch","空手チョップ","からてチョップ"]] },
   { id:"snorlax", name:"カビゴン", emo:"😴", hp:110, alias:["かびごん","カビゴン","カビ今","カビ金"], moves:[["のしかかり",13,"hit","のしかかり","伸し掛かり"],["ヘビーボンバー",14,"hit","ヘビーボンバー"]] },
-  { id:"farfetchd", name:"ネギガナイト", emo:"🦆", hp:65, alias:["ねぎがないと","ネギガナイト","ネギが ナイト","ネギガナイト","ねぎがなっと"], moves:[["リーフブレード",10,"slash","リーフブレード"],["つばめがえし",10,"slash","燕返し","つばめがえし"]] },
+  { id:"farfetchd", name:"ネギガナイト", emo:"🦆", hp:65, alias:["ねぎがないと","ネギガナイト","ネギが ナイト","ねぎがなっと"], moves:[["リーフブレード",10,"slash","リーフブレード"],["つばめがえし",10,"slash","燕返し","つばめがえし"]] },
   { id:"mimikyu", name:"ミミッキュ", emo:"👻", hp:65, alias:["みみっきゅ","ミミッキュ","ミミキュ","ミミ急"], moves:[["じゃれつく",10,"punch","じゃれつく"],["かげうち",9,"shadow","影打ち","かげうち"]] }
 ];
 
-/* ================================================================
-   設定
-   ================================================================ */
 const STAGES = 3;
-const PASS_RATE = 0.7;        // 認識の合格ライン
-const FAIL_RESCUE = 3;        // この回数失敗したら声量で通す
-const VOL_PASS = 25;          // 声量の合格ライン
-const NEVER_LOSE_MIN = 8;     // 味方HPはこれ以下にはならない
+const PASS_RATE = 0.7;
+const FAIL_RESCUE = 3;
+const VOL_PASS = 25;
 
-/* ================================================================
-   共通部品
-   ================================================================ */
 const $ = id => document.getElementById(id);
-function show(id) { document.querySelectorAll(".screen").forEach(s => s.classList.remove("show")); $(id).classList.add("show"); }
+let currentScreen = "start";
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
 function pickN(arr, n) { return shuffle(arr.slice()).slice(0, n); }
 function warn(msg) { const w = $("warn"); w.textContent = msg; w.style.display = "block"; setTimeout(() => w.style.display = "none", 6000); }
 
-/* --- 効果音 --- */
+/* ===== BGM(4つ) =====
+   bgm/start.mp3  開始画面 / bgm/lab.mp3  ポケモン選択 / bgm/battle.mp3  バトル / bgm/win.mp3  しょうり・ゆうしょう */
+const BGM_DIR = "bgm/";
+const BGM_EXTS = ["mp3", "m4a", "wav", "ogg"];
+const BGM_VOL = 0.35;
+const BGM_MAP = { start: "start", lab: "lab", battle: "battle", win: "win", result: "win" };
+const bgm = {
+  cache: {}, cur: null, name: null, want: null, micPaused: false, blocked: false,
+  load(name) {
+    if (this.cache[name]) return this.cache[name];
+    this.cache[name] = new Promise(resolve => {
+      let i = 0;
+      const next = () => {
+        if (i >= BGM_EXTS.length) { resolve(null); return; }
+        const a = new Audio();
+        a.loop = true; a.volume = BGM_VOL; a.preload = "auto";
+        let settled = false;
+        const ok = () => { if (!settled) { settled = true; resolve(a); } };
+        const ng = () => { if (!settled) { settled = true; next(); } };
+        a.addEventListener("loadedmetadata", ok);
+        a.addEventListener("canplay", ok);
+        a.addEventListener("error", ng);
+        setTimeout(() => { if (!settled) { settled = true; resolve(a); } }, 5000);
+        a.src = BGM_DIR + name + "." + BGM_EXTS[i++];
+        a.load();
+      };
+      next();
+    });
+    return this.cache[name];
+  },
+  async play(name) {
+    this.want = name;
+    if (this.cur && this.name !== name) {
+      this.cur.pause();
+      try { this.cur.currentTime = 0; } catch (e) {}
+      this.cur = null; this.name = null;
+    }
+    if (this.cur && this.name === name) { this.tryPlay(); return; }
+    const a = await this.load(name);
+    if (this.want !== name || !a) return;
+    this.cur = a; this.name = name;
+    this.tryPlay();
+  },
+  tryPlay() {
+    if (!this.cur || this.micPaused) return;
+    const p = this.cur.play();
+    if (p && p.catch) p.catch(() => { this.blocked = true; });
+  },
+  pauseMic() { this.micPaused = true; if (this.cur) this.cur.pause(); },
+  resumeMic() { this.micPaused = false; this.tryPlay(); },
+  kick() {
+    if (!this.want) this.play(BGM_MAP[currentScreen] || "start");
+    else if (this.blocked) { this.blocked = false; this.tryPlay(); }
+  }
+};
+["start", "lab", "battle", "win"].forEach(n => bgm.load(n));
+
+function show(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("show"));
+  $(id).classList.add("show");
+  currentScreen = id;
+  if (BGM_MAP[id]) bgm.play(BGM_MAP[id]);
+}
+
 let actx = null;
 function audio() { if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)(); if (actx.state === "suspended") actx.resume(); return actx; }
 function tone(freq, start, dur, type = "sine", vol = 0.2, freqEnd = null) {
@@ -298,7 +355,7 @@ function tone(freq, start, dur, type = "sine", vol = 0.2, freqEnd = null) {
   g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.001, t + dur);
   o.connect(g); g.connect(a.destination); o.start(t); o.stop(t + dur + 0.02);
 }
-function noise(start, dur, vol = 0.2, hp = 0) {
+function noise(start, dur, vol = 0.2) {
   const a = audio(), t = a.currentTime + start;
   const len = Math.floor(a.sampleRate * dur), buf = a.createBuffer(1, len, a.sampleRate), d = buf.getChannelData(0);
   for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len);
@@ -311,18 +368,17 @@ const SE = {
   tick() { tone(900, 0, 0.04, "square", .08); },
   ok() { [523, 659, 784, 1047].forEach((f, i) => tone(f, i * .1, .25, "triangle", .25)); },
   ng() { tone(200, 0, .2, "square", .12); },
+  pop() { tone(300, 0, .18, "sine", .3, 900); },
   hit() { noise(0, .25, .3); tone(140, 0, .2, "square", .2, 60); },
   zap() { for (let i = 0; i < 8; i++) tone(300 + Math.random() * 1500, i * .04, .05, "sawtooth", .1); noise(0, .3, .15); },
   boom() { noise(0, .6, .4); tone(90, 0, .5, "sine", .35, 30); },
   water() { noise(0, .5, .18); tone(500, 0, .5, "sine", .12, 250); },
   fire() { noise(0, .6, .25); tone(200, 0, .6, "sawtooth", .1, 90); },
   whoosh() { tone(900, 0, .35, "sine", .15, 200); },
-  fanfare() { [523, 659, 784, 1047, 784, 1047, 1319].forEach((f, i) => tone(f, i * .13, .3, "triangle", .25)); },
-  lose() { tone(300, 0, .5, "sine", .2, 80); }
+  fanfare() { [523, 659, 784, 1047, 784, 1047, 1319].forEach((f, i) => tone(f, i * .13, .3, "triangle", .25)); }
 };
 const FX_SE = { electric:"zap", thunder:"zap", dash:"whoosh", iron:"hit", aura:"boom", bone:"hit", punch:"hit", slash:"whoosh", fire:"fire", fireball:"fire", water:"water", wave:"water", bubble:"water", ice:"water", rock:"boom", meteor:"boom", dragon:"fire", beam:"boom", shadow:"boom", ring:"water", arrow:"whoosh", quake:"boom", sound:"boom", hit:"hit", leaf:"whoosh", bite:"hit" };
 
-/* --- 読み上げ --- */
 let jaVoice = null;
 function pickVoice() { if (!("speechSynthesis" in window)) return; const vs = speechSynthesis.getVoices(); jaVoice = vs.find(v => v.lang === "ja-JP") || vs.find(v => v.lang && v.lang.startsWith("ja")) || null; }
 if ("speechSynthesis" in window) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
@@ -338,16 +394,15 @@ function speak(text, rate = 0.85) {
     setTimeout(res, 6000);
   });
 }
-document.addEventListener("pointerdown", () => { audio(); }, { passive: true });
+document.addEventListener("pointerdown", () => { audio(); bgm.kick(); }, { passive: true });
 
-/* --- 画像 --- */
 const imgCache = {};
 function pokeImg(id) {
   if (id in imgCache) return Promise.resolve(imgCache[id]);
   return new Promise(resolve => {
     const exts = ["png", "webp", "jpg", "jpeg"]; let remain = exts.length, done = false;
     exts.forEach(ext => {
-      const url = `pokemon/${id}.${ext}`, im = new Image();
+      const url = "pokemon/" + id + "." + ext, im = new Image();
       im.onload = () => { if (!done) { done = true; imgCache[id] = url; resolve(url); } };
       im.onerror = () => { if (--remain === 0 && !done) { imgCache[id] = null; resolve(null); } };
       im.src = url;
@@ -361,14 +416,10 @@ async function fillPokeEl(el, p) {
   else el.textContent = p.emo;
 }
 
-/* ================================================================
-   音声判定
-   ================================================================ */
 function toHira(s) { return s.replace(/[ァ-ヶ]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60)); }
 const SMALLMAP = { "ぁ":"あ","ぃ":"い","ぅ":"う","ぇ":"え","ぉ":"お","ゃ":"や","ゅ":"ゆ","ょ":"よ","っ":"つ","ゎ":"わ" };
 const DIGIT = ["ぜろ","いち","に","さん","よん","ご","ろく","なな","はち","きゅう"];
 function numToKana(str) {
-  // 数字の読みかえ。100000→じゅうまん、10→じゅう、「10万」→じゅうまん
   str = str.replace(/(\d+)万/g, (m, n) => numToKana(n) + "まん");
   return str.replace(/\d+/g, m => {
     const n = parseInt(m, 10);
@@ -403,7 +454,6 @@ function sim(heard, target) {
   if (a.includes(b) && a.length <= b.length + 3) return 1;
   return 1 - lev(a, b) / Math.max(a.length, b.length);
 }
-/* 学習した別名 */
 let LEARNED = {};
 try { LEARNED = JSON.parse(localStorage.getItem("mojiBattleLearned") || "{}"); } catch (e) { LEARNED = {}; }
 function saveLearned() { try { localStorage.setItem("mojiBattleLearned", JSON.stringify(LEARNED)); } catch (e) {} }
@@ -413,7 +463,6 @@ function addLearned(key, text) {
   if (!LEARNED[key].includes(text)) LEARNED[key].push(text);
   saveLearned();
 }
-/* お題 {key, main, alias[]} に対して候補群をスコア化 */
 function scoreFor(topic, alts) {
   const names = [topic.main, ...(topic.alias || []), ...(LEARNED[topic.key] || [])];
   let best = 0;
@@ -421,7 +470,6 @@ function scoreFor(topic, alts) {
   return best;
 }
 
-/* マイク・音声認識の共通ラッパ */
 const SR_CLASS = window.SpeechRecognition || window.webkitSpeechRecognition;
 let micStream = null, micCtx = null, micAnalyser = null;
 async function ensureMic() {
@@ -436,13 +484,13 @@ async function ensureMic() {
   } catch (e) { warn("マイクの きょかが ひつようです: " + e.name); return false; }
 }
 
-/* 1回の聞き取り。戻り値 { alts[], peak, error } */
 function listenOnce(meterEl, onInterim) {
   return new Promise(async resolve => {
     if (!SR_CLASS) { resolve({ alts: [], peak: 0, error: "unsupported" }); return; }
     if ("speechSynthesis" in window) speechSynthesis.cancel();
+    bgm.pauseMic();
     const ok = await ensureMic();
-    if (!ok) { resolve({ alts: [], peak: 0, error: "mic" }); return; }
+    if (!ok) { bgm.resumeMic(); resolve({ alts: [], peak: 0, error: "mic" }); return; }
     const buf = new Uint8Array(micAnalyser.fftSize);
     let peak = 0, raf = 0, running = true;
     const loop = () => {
@@ -460,6 +508,7 @@ function listenOnce(meterEl, onInterim) {
     const finish = () => {
       if (finished) return; finished = true; running = false; cancelAnimationFrame(raf);
       if (meterEl) meterEl.style.width = "0%";
+      setTimeout(() => bgm.resumeMic(), 300);
       resolve({ alts: finalAlts, peak, error: err });
     };
     rec.onresult = e => {
@@ -469,21 +518,17 @@ function listenOnce(meterEl, onInterim) {
       if (res.isFinal) finalAlts = alts;
     };
     rec.onerror = e => { err = e.error; };
-    rec.onend = finish;
     const timer = setTimeout(() => { try { rec.stop(); } catch (e) {} }, 6500);
     rec.onend = () => { clearTimeout(timer); finish(); };
     try { rec.start(); } catch (e) { err = "start"; clearTimeout(timer); finish(); }
   });
 }
 
-/* ある画面のパネルを使って、お題を言わせて成功まで繰り返す
-   panel: {root, ask, mic, meter, status, learn}
-   topic: {key, main, alias}
-   戻り値:成功したら true(救済含む) */
-async function voiceChallenge(panel, topic, askText, opts = {}) {
+/* 声で言うチャレンジ(スロット枠と技の表示はそのまま。マイクボタンで言う) */
+async function voiceChallenge(panel, topic, askText) {
   panel.root.classList.add("show");
   panel.ask.textContent = askText;
-  let fails = 0, lastAlts = [];
+  let fails = 0;
   panel.status.textContent = "ボタンをおして、よんでね"; panel.status.className = "vstatus";
   panel.learn.innerHTML = "";
   while (true) {
@@ -496,8 +541,7 @@ async function voiceChallenge(panel, topic, askText, opts = {}) {
     panel.status.textContent = "「" + topic.main + "」と いってね!"; panel.status.className = "vstatus";
     const r = await listenOnce(panel.meter, t => { panel.status.textContent = "きこえた: " + t; });
     panel.mic.classList.remove("rec"); panel.mic.textContent = "🎤 はなす";
-    lastAlts = r.alts;
-    if (r.error === "unsupported") { warn("このブラウザは おんせいにんしき に たいおうしていません"); }
+    if (r.error === "unsupported") warn("このブラウザは おんせいにんしき に たいおうしていません");
     const score = r.alts.length ? scoreFor(topic, r.alts) : 0;
     if (score >= PASS_RATE) {
       panel.status.textContent = "🎉 すごい! よめたね!"; panel.status.className = "vstatus ok";
@@ -516,10 +560,8 @@ async function voiceChallenge(panel, topic, askText, opts = {}) {
       panel.root.classList.remove("show");
       return true;
     }
-    if (fails === 2) { speak(topic.main); }
     panel.status.textContent = heard ? "おしい! きこえた:「" + heard + "」もういちど!" : "こえが きこえなかった… もういちど!";
     SE.ng();
-    // 学習ボタン(常に小さく表示)
     if (heard) {
       panel.learn.innerHTML = "「" + heard + "」は正解? ";
       const b = document.createElement("button"); b.textContent = "これも正解にする";
@@ -529,11 +571,8 @@ async function voiceChallenge(panel, topic, askText, opts = {}) {
   }
 }
 
-/* ================================================================
-   スタート画面(雷)
-   ================================================================ */
 const stormCv = $("stormCv"), sctx = stormCv.getContext("2d");
-let stormRun = true, bolts = [], flash = 0, lastBolt = 0;
+let bolts = [], flash = 0, lastBolt = 0;
 function fitStorm() { stormCv.width = innerWidth; stormCv.height = innerHeight; }
 fitStorm(); addEventListener("resize", fitStorm);
 function makeBolt() {
@@ -544,37 +583,52 @@ function makeBolt() {
   bolts.push({ pts, life: 1 }); flash = 0.35;
 }
 function stormLoop(t) {
-  if (!stormRun) return;
   sctx.clearRect(0, 0, stormCv.width, stormCv.height);
-  if (flash > 0) { sctx.fillStyle = `rgba(255,255,255,${flash})`; sctx.fillRect(0, 0, stormCv.width, stormCv.height); flash -= 0.03; }
-  if (t - lastBolt > 900 + Math.random() * 1400) { makeBolt(); lastBolt = t; }
-  bolts.forEach(b => {
-    sctx.strokeStyle = `rgba(255,255,160,${b.life})`; sctx.lineWidth = 3 + b.life * 4;
-    sctx.shadowColor = "#fff59d"; sctx.shadowBlur = 24;
-    sctx.beginPath(); b.pts.forEach((p, i) => i ? sctx.lineTo(p[0], p[1]) : sctx.moveTo(p[0], p[1])); sctx.stroke();
-    b.life -= 0.05;
-  });
-  sctx.shadowBlur = 0;
-  bolts = bolts.filter(b => b.life > 0);
+  if (currentScreen === "start") {
+    if (flash > 0) { sctx.fillStyle = "rgba(255,255,255," + flash + ")"; sctx.fillRect(0, 0, stormCv.width, stormCv.height); flash -= 0.03; }
+    if (t - lastBolt > 900 + Math.random() * 1400) { makeBolt(); lastBolt = t; }
+    bolts.forEach(b => {
+      sctx.strokeStyle = "rgba(255,255,160," + b.life + ")"; sctx.lineWidth = 3 + b.life * 4;
+      sctx.shadowColor = "#fff59d"; sctx.shadowBlur = 24;
+      sctx.beginPath(); b.pts.forEach((p, i) => i ? sctx.lineTo(p[0], p[1]) : sctx.moveTo(p[0], p[1])); sctx.stroke();
+      b.life -= 0.05;
+    });
+    sctx.shadowBlur = 0;
+    bolts = bolts.filter(b => b.life > 0);
+  }
   requestAnimationFrame(stormLoop);
 }
 requestAnimationFrame(stormLoop);
 
-/* ================================================================
-   ゲーム状態
-   ================================================================ */
-let stage = 0, myMain = null; // 最初に選んだポケモン
+let stage = 0, myMain = null, starting = false;
 const labPanel = { root: $("labVoice"), ask: $("labAsk"), mic: $("labMic"), meter: $("labMeter"), status: $("labStatus"), learn: $("labLearn") };
 const batPanel = { root: $("batVoice"), ask: $("batAsk"), mic: $("batMic"), meter: $("batMeter"), status: $("batStatus"), learn: $("batLearn") };
 
-$("startBtn").onclick = () => { audio(); SE.fanfare(); newGame(); };
+$("startBtn").onclick = () => {
+  if (starting) return;
+  starting = true;
+  audio(); SE.fanfare();
+  setTimeout(() => { starting = false; newGame(); }, 1300);
+};
 $("againBtn").onclick = () => { SE.tap(); show("start"); };
 
 function newGame() { stage = 0; myMain = null; nextStage(); }
 
+/* しょうり画面を出し、「つぎへ」で進む */
+function showWin(mine, foe) {
+  return new Promise(async resolve => {
+    $("winSub").textContent = mine.name + " が " + foe.name + " に かったよ!";
+    await fillPokeEl($("winPoke"), mine);
+    show("win");
+    $("nextBtn").textContent = stage >= STAGES ? "ゆうしょうへ ▶" : "つぎへ ▶";
+    SE.fanfare(); confetti(); speak("しょうり! " + foe.name + "に かった!");
+    const h = () => { $("nextBtn").removeEventListener("click", h); SE.tap(); resolve(); };
+    $("nextBtn").addEventListener("click", h);
+  });
+}
+
 async function nextStage() {
   stage++;
-  // 候補3匹:1回目は味方プールからランダム3、2回目以降は最初の子+ランダム2
   let cands;
   if (stage === 1) cands = pickN(PLAYER_POOL, 3);
   else {
@@ -584,17 +638,15 @@ async function nextStage() {
   const chosen = await labSelect(cands);
   if (stage === 1) myMain = chosen;
   const foe = pickN(ENEMY_POOL, 1)[0];
-  const win = await battle(chosen, foe);
+  await battle(chosen, foe);
+  await showWin(chosen, foe);
   if (stage >= STAGES) { showResult(); return; }
   nextStage();
 }
 
-/* ================================================================
-   研究室:選択
-   ================================================================ */
 async function labSelect(cands) {
   show("lab");
-  $("labStage").textContent = `ステージ ${stage} / ${STAGES}`;
+  $("labStage").textContent = "ステージ " + stage + " / " + STAGES;
   const row = $("labRow"); row.innerHTML = "";
   const covers = ["tube", "box", "machine"]; shuffle(covers);
   const items = [];
@@ -609,11 +661,10 @@ async function labSelect(cands) {
     it.appendChild(peek); it.appendChild(cover); it.appendChild(tag);
     row.appendChild(it); items.push(it);
   }
-  speak("ポケモンの なまえを よんでね");
-  // 声で選ぶ:誰かの名前を言えたらその子
-  panelLabPrepare();
+  speak("なまえを よんで えらぼう!");
+  labPanel.status.textContent = ""; labPanel.learn.innerHTML = ""; labPanel.ask.textContent = "なまえを よんで えらぼう!";
+  labPanel.root.classList.add("show");
   const chosenIdx = await new Promise(async resolve => {
-    labPanelOpen();
     let fails = 0;
     while (true) {
       await new Promise(res => { const h = () => { labPanel.mic.removeEventListener("click", h); res(); }; labPanel.mic.addEventListener("click", h); });
@@ -632,7 +683,6 @@ async function labSelect(cands) {
       const heard = r.alts[0] || "";
       labPanel.status.className = "vstatus ng";
       if (fails >= FAIL_RESCUE && r.peak >= VOL_PASS) {
-        // 救済:声が出ていれば、最も近い子を選ぶ(同点なら最初)
         const bi = best >= 0 ? best : 0;
         labPanel.status.textContent = "おおきな こえ! " + cands[bi].name + "に けってい!"; labPanel.status.className = "vstatus ok"; SE.ok(); await sleep(900); resolve(bi); return;
       }
@@ -640,7 +690,6 @@ async function labSelect(cands) {
       SE.ng();
       labPanel.learn.innerHTML = "";
       if (heard) {
-        // 学習は最も近い子に紐づけ
         const bi = best >= 0 ? best : 0;
         labPanel.learn.innerHTML = "「" + heard + "」は " + cands[bi].name + "? ";
         const b = document.createElement("button"); b.textContent = "これも正解にする";
@@ -653,17 +702,12 @@ async function labSelect(cands) {
   const picked = cands[chosenIdx];
   items[chosenIdx].classList.add("picked");
   labPanel.root.classList.remove("show");
-  SE.pop && SE.pop();
+  SE.pop();
   speak(picked.name + "! きみに きめた!");
   await sleep(2200);
   return picked;
 }
-function panelLabPrepare() { labPanel.status.textContent = ""; labPanel.learn.innerHTML = ""; labPanel.ask.textContent = "なまえを よんで えらぼう!"; }
-function labPanelOpen() { labPanel.root.classList.add("show"); }
 
-/* ================================================================
-   バトル
-   ================================================================ */
 const fxCv = $("fxCanvas"), fctx = fxCv.getContext("2d");
 function fitFx() { fxCv.width = innerWidth; fxCv.height = innerHeight; }
 fitFx(); addEventListener("resize", fitFx);
@@ -679,7 +723,7 @@ function center(el) { const r = el.getBoundingClientRect(); return { x: r.left +
 
 async function battle(mine, foe) {
   show("battle");
-  $("stageTag").textContent = `ステージ ${stage} / ${STAGES}`;
+  $("stageTag").textContent = "ステージ " + stage + " / " + STAGES;
   const me = { ...mine, max: mine.hp, cur: mine.hp };
   const en = { ...foe, max: foe.hp + stage * 10, cur: foe.hp + stage * 10 };
   $("pName").textContent = me.name; $("eName").textContent = en.name;
@@ -688,22 +732,19 @@ async function battle(mine, foe) {
   $("playerPoke").className = "poke"; $("enemyPoke").className = "poke";
   await fillPokeEl($("playerPoke"), me); await fillPokeEl($("enemyPoke"), en);
   const vs = $("versus");
-  vs.innerHTML = `${me.name}<br>VS<br>${en.name}`;
-  vs.classList.add("show"); SE.boom(); speak(`${me.name} たい ${en.name}`); await sleep(2000); vs.classList.remove("show");
+  vs.innerHTML = me.name + "<br>VS<br>" + en.name;
+  vs.classList.add("show"); SE.boom(); speak(me.name + " たい " + en.name); await sleep(2000); vs.classList.remove("show");
   $("playerPoke").classList.add("enter"); $("enemyPoke").classList.add("enter");
-  await say(`あいての ${en.name} が あらわれた!`, 1500);
+  await say("あいての " + en.name + " が あらわれた!", 1500);
 
-  const enemyFirstTopic = en;
-  let turn = 0;
   while (en.cur > 0) {
-    // ---- 自分のターン:スロット→音声 ----
     const mv = await slotSelect(me.moves);
     const topic = { key: "m:" + me.id + ":" + mv[0], main: mv[0], alias: mv.slice(3) };
-    await voiceChallenge(batPanel, topic, `「${mv[0]}」を よもう!`);
-    speak(mv[0] + "!");
-    // ダメージ(ハラハラ用に少しブレ)
+    /* スロット枠と技の表示はそのまま。マイクボタンで声に出して言う */
+    await voiceChallenge(batPanel, topic, "このわざを よんでね!");
+    $("slotWrap").classList.remove("show");
     const dmg = Math.round(mv[1] * (0.9 + Math.random() * 0.25));
-    await playMove(mv[2], mv[0], "player", dmg, mv);
+    await playMove(mv[2], mv[0], "player", dmg);
     en.cur -= dmg;
     setHp($("eHp"), $("eHpTxt"), en.cur, en.max);
     $("enemyPoke").classList.remove("hit"); void $("enemyPoke").offsetWidth; $("enemyPoke").classList.add("hit");
@@ -711,63 +752,51 @@ async function battle(mine, foe) {
     await sleep(900);
     if (en.cur <= 0) break;
 
-    // ---- 相手のターン ----
-    turn++;
     const emv = en.moves[Math.floor(Math.random() * en.moves.length)];
-    await say(`${en.name}の ${emv[0]}!`, 1100);
-    // 絶対負けない調整:ダメージは小さめ、残りHPが一定以下にならない
+    await say(en.name + "の " + emv[0] + "!", 1100);
     const raw = Math.round(emv[1] * (0.9 + Math.random() * 0.3));
     let pd = raw;
     if (me.cur - pd < Math.round(me.max * 0.12)) pd = Math.max(0, me.cur - Math.round(me.max * 0.12));
-    // 序盤は思ったより減る(ハラハラ)ように、HPが多いときは通常ダメージ
-    await playMove(emv[2], emv[0], "enemy", pd, emv);
+    await playMove(emv[2], emv[0], "enemy", pd);
     me.cur -= pd;
     setHp($("pHp"), $("pHpTxt"), me.cur, me.max);
     $("playerPoke").classList.remove("hit"); void $("playerPoke").offsetWidth; $("playerPoke").classList.add("hit");
     SE.hit();
     await sleep(900);
-    // こっそり回復で負けを防ぐ(ピンチが続くと元気になる)
     if (me.cur < me.max * 0.25) { me.cur = Math.min(me.max, me.cur + Math.round(me.max * 0.12)); setHp($("pHp"), $("pHpTxt"), me.cur, me.max); await say("がんばれ! ちからが わいてきた!", 1200); }
   }
-  // 勝利
   $("enemyPoke").classList.add("faint");
-  await say(`${en.name}を たおした!`, 1300);
-  speak(`${en.name}を たおした!`);
-  SE.fanfare(); confetti();
-  await sleep(1800);
+  await say(en.name + "を たおした!", 1300);
+  await sleep(500);
   batPanel.root.classList.remove("show");
   return true;
 }
 
-/* ===== スロット ===== */
+/* スロット:停止後も枠と技の表示を残す(ナレーションなし) */
 async function slotSelect(moves) {
   const wrap = $("slotWrap"), reel = $("slotReel"), win = $("slotWin");
-  const h = win.clientHeight || 70;
   const finalIdx = Math.floor(Math.random() * moves.length);
-  // リールの並び:ランダム列を数周+最後に決定の技
   const seq = [];
   for (let i = 0; i < 18; i++) seq.push(moves[Math.floor(Math.random() * moves.length)]);
   seq.push(moves[finalIdx]);
-  reel.innerHTML = seq.map(m => `<div>${m[0]}</div>`).join("");
-  reel.style.transition = "none"; reel.style.top = "0px";
   wrap.classList.add("show");
   $("slotLabel").textContent = "わざを えらんでいるよ…";
+  const rowH = win.clientHeight;
+  reel.innerHTML = seq.map(m => "<div style='height:" + rowH + "px'>" + m[0] + "</div>").join("");
+  reel.style.transition = "none"; reel.style.top = "0px";
   await sleep(60);
   void reel.offsetWidth;
-  const target = -(seq.length - 1) * (win.clientHeight || h);
   reel.style.transition = "top 2.6s cubic-bezier(.15,.7,.2,1)";
-  reel.style.top = target + "px";
+  reel.style.top = (-(seq.length - 1) * rowH) + "px";
   const tk = setInterval(() => SE.tick(), 120);
   await sleep(2700);
   clearInterval(tk);
   $("slotLabel").textContent = "けってい!";
   SE.ok();
-  await sleep(700);
-  wrap.classList.remove("show");
+  await sleep(500);
   return moves[finalIdx];
 }
 
-/* ===== 技演出 ===== */
 const FXCOL = { electric:"#fff176", thunder:"#fff59d", dash:"#fafafa", iron:"#b0bec5", aura:"#4fc3f7", bone:"#efebe9", punch:"#ffab91", slash:"#e1f5fe", fire:"#ff7043", fireball:"#ff5722", water:"#4fc3f7", wave:"#29b6f6", bubble:"#b3e5fc", ice:"#b2ebf2", rock:"#a1887f", meteor:"#ffcc80", dragon:"#ba68c8", beam:"#ffffff", shadow:"#7e57c2", ring:"#80deea", arrow:"#c5e1a5", quake:"#8d6e63", sound:"#fff59d", hit:"#ffffff", leaf:"#81c784", bite:"#ffffff" };
 
 function runAnim(dur, draw) {
@@ -775,8 +804,10 @@ function runAnim(dur, draw) {
     const t0 = performance.now();
     const step = now => {
       const p = Math.min(1, (now - t0) / dur);
+      fctx.setTransform(1, 0, 0, 1, 0, 0);
       fctx.clearRect(0, 0, fxCv.width, fxCv.height);
       draw(p);
+      fctx.setTransform(1, 0, 0, 1, 0, 0);
       p < 1 ? requestAnimationFrame(step) : (fctx.clearRect(0, 0, fxCv.width, fxCv.height), res());
     };
     requestAnimationFrame(step);
@@ -784,7 +815,7 @@ function runAnim(dur, draw) {
 }
 function rnd(a, b) { return a + Math.random() * (b - a); }
 
-async function playMove(fx, name, side, dmg, mv) {
+async function playMove(fx, name, side, dmg) {
   const from = center(side === "player" ? $("playerPoke") : $("enemyPoke"));
   const to = center(side === "player" ? $("enemyPoke") : $("playerPoke"));
   const mn = $("moveName"); mn.textContent = name; mn.classList.remove("show"); void mn.offsetWidth; mn.classList.add("show");
@@ -798,8 +829,7 @@ async function playMove(fx, name, side, dmg, mv) {
     case "electric": case "thunder": {
       const big = fx === "thunder";
       await runAnim(big ? 1300 : 900, p => {
-        // 天から落雷+周囲に電撃
-        fctx.fillStyle = `rgba(255,255,200,${Math.random() * 0.25 * (p > .4 ? 1 : 0)})`; fctx.fillRect(0, 0, W, H);
+        fctx.fillStyle = "rgba(255,255,200," + (Math.random() * 0.25 * (p > .4 ? 1 : 0)) + ")"; fctx.fillRect(0, 0, W, H);
         const n = big ? 4 : 2;
         for (let k = 0; k < n; k++) {
           let x = to.x + rnd(-60, 60), y = 0;
@@ -813,7 +843,6 @@ async function playMove(fx, name, side, dmg, mv) {
       break;
     }
     case "dash": case "punch": case "hit": case "bite": case "iron": case "bone": {
-      // 突進:軌跡と衝撃
       await runAnim(700, p => {
         const t = ease(p);
         const x = lerp(from.x, to.x, t), y = lerp(from.y, to.y, t);
@@ -825,7 +854,6 @@ async function playMove(fx, name, side, dmg, mv) {
       break;
     }
     case "aura": case "fireball": {
-      // 弾を撃つ
       await runAnim(900, p => {
         const t = ease(Math.min(1, p / .7));
         const x = lerp(from.x, to.x, t), y = lerp(from.y, to.y, t);
@@ -854,7 +882,7 @@ async function playMove(fx, name, side, dmg, mv) {
         for (let i = 0; i < 40; i++) {
           const t = Math.min(1, p * 1.3 - i * 0.012); if (t <= 0) continue;
           const x = lerp(from.x, to.x, t) + rnd(-20, 20), y = lerp(from.y, to.y, t) + rnd(-20, 20) - Math.sin(t * 3) * 10;
-          fctx.fillStyle = `hsla(${rnd(5, 45)},100%,${rnd(45, 65)}%,${1 - t * .5})`;
+          fctx.fillStyle = "hsla(" + rnd(5, 45) + ",100%," + rnd(45, 65) + "%," + (1 - t * .5) + ")";
           fctx.beginPath(); fctx.arc(x, y, rnd(8, 22) * (0.6 + t), 0, 7); fctx.fill();
         }
       });
@@ -871,7 +899,7 @@ async function playMove(fx, name, side, dmg, mv) {
         } else if (fx === "ring") {
           for (let k = 0; k < 3; k++) { const r = Math.max(0, p * 220 - k * 40); fctx.strokeStyle = "#80deea"; fctx.lineWidth = 8; fctx.beginPath(); fctx.arc(to.x, to.y, r, 0, 7); fctx.stroke(); }
         } else {
-          for (let i = 0; i < 40; i++) { const t = Math.min(1, p * 1.3 - i * .012); if (t <= 0) continue; fctx.fillStyle = `rgba(79,195,247,${.9 - t * .4})`; fctx.beginPath(); fctx.arc(lerp(from.x, to.x, t) + rnd(-18, 18), lerp(from.y, to.y, t) + rnd(-18, 18), rnd(8, 18), 0, 7); fctx.fill(); }
+          for (let i = 0; i < 40; i++) { const t = Math.min(1, p * 1.3 - i * .012); if (t <= 0) continue; fctx.fillStyle = "rgba(79,195,247," + (.9 - t * .4) + ")"; fctx.beginPath(); fctx.arc(lerp(from.x, to.x, t) + rnd(-18, 18), lerp(from.y, to.y, t) + rnd(-18, 18), rnd(8, 18), 0, 7); fctx.fill(); }
         }
       });
       break;
@@ -887,14 +915,13 @@ async function playMove(fx, name, side, dmg, mv) {
     }
     case "rock": case "meteor": case "quake": {
       await runAnim(1200, p => {
-        if (fx === "quake") { fctx.translate(rnd(-8, 8), rnd(-8, 8)); }
+        if (fx === "quake") fctx.translate(rnd(-8, 8), rnd(-8, 8));
         for (let i = 0; i < (fx === "meteor" ? 9 : 7); i++) {
           const t = Math.max(0, Math.min(1, p * 1.3 - i * .1)); if (t <= 0) continue;
           const x = to.x + (i - 4) * 38, y = lerp(-60, to.y + rnd(-10, 10), t * t);
           if (fx === "meteor") { fctx.strokeStyle = "rgba(255,200,100,.7)"; fctx.lineWidth = 10; fctx.beginPath(); fctx.moveTo(x - 50, y - 90); fctx.lineTo(x, y); fctx.stroke(); }
           fctx.fillStyle = col; fctx.beginPath(); fctx.arc(x, y, 20, 0, 7); fctx.fill();
         }
-        fctx.setTransform(1, 0, 0, 1, 0, 0);
       });
       break;
     }
@@ -905,7 +932,7 @@ async function playMove(fx, name, side, dmg, mv) {
         fctx.strokeStyle = g; fctx.lineWidth = w; fctx.lineCap = "round"; fctx.shadowColor = "#ffd740"; fctx.shadowBlur = 40;
         const t = Math.min(1, p * 2.5);
         fctx.beginPath(); fctx.moveTo(from.x, from.y); fctx.lineTo(lerp(from.x, to.x, t), lerp(from.y, to.y, t)); fctx.stroke(); fctx.shadowBlur = 0;
-        if (p > .5) { fctx.fillStyle = `rgba(255,255,255,${(p - .5)})`; fctx.beginPath(); fctx.arc(to.x, to.y, (p - .5) * 260, 0, 7); fctx.fill(); }
+        if (p > .5) { fctx.fillStyle = "rgba(255,255,255," + (p - .5) + ")"; fctx.beginPath(); fctx.arc(to.x, to.y, (p - .5) * 260, 0, 7); fctx.fill(); }
       });
       break;
     }
@@ -915,7 +942,7 @@ async function playMove(fx, name, side, dmg, mv) {
         const x = lerp(from.x, to.x, t), y = lerp(from.y, to.y, t);
         const g = fctx.createRadialGradient(x, y, 6, x, y, 70); g.addColorStop(0, "#d1c4e9"); g.addColorStop(.5, "#6a1b9a"); g.addColorStop(1, "rgba(0,0,0,0)");
         fctx.fillStyle = g; fctx.beginPath(); fctx.arc(x, y, 70, 0, 7); fctx.fill();
-        if (p > .7) { fctx.fillStyle = `rgba(40,0,70,${(p - .7) * 1.2})`; fctx.fillRect(0, 0, W, H); }
+        if (p > .7) { fctx.fillStyle = "rgba(40,0,70," + ((p - .7) * 1.2) + ")"; fctx.fillRect(0, 0, W, H); }
       });
       break;
     }
@@ -933,8 +960,8 @@ async function playMove(fx, name, side, dmg, mv) {
     }
     case "sound": {
       await runAnim(1000, p => {
-        for (let k = 0; k < 5; k++) { const r = Math.max(0, p * 360 - k * 60); fctx.strokeStyle = `rgba(255,245,157,${1 - p})`; fctx.lineWidth = 7; fctx.beginPath(); fctx.arc(from.x, from.y, r, -.7, .7); fctx.stroke(); }
-        if (p > .3) { fctx.fillStyle = "rgba(255,255,255," + (p - .3) * .5 + ")"; fctx.fillRect(0, 0, W, H); }
+        for (let k = 0; k < 5; k++) { const r = Math.max(0, p * 360 - k * 60); fctx.strokeStyle = "rgba(255,245,157," + (1 - p) + ")"; fctx.lineWidth = 7; fctx.beginPath(); fctx.arc(from.x, from.y, r, -.7, .7); fctx.stroke(); }
+        if (p > .3) { fctx.fillStyle = "rgba(255,255,255," + ((p - .3) * .5) + ")"; fctx.fillRect(0, 0, W, H); }
       });
       break;
     }
@@ -943,16 +970,12 @@ async function playMove(fx, name, side, dmg, mv) {
     }
   }
   mn.classList.remove("show");
-  // ダメージ数字
   const dt = $("dmgText");
   dt.textContent = "-" + dmg; dt.style.left = (to.x - 60) + "px"; dt.style.top = (to.y - 80) + "px";
   dt.classList.remove("show"); void dt.offsetWidth; dt.classList.add("show");
   setTimeout(() => dt.classList.remove("show"), 1000);
 }
 
-/* ================================================================
-   結果・演出
-   ================================================================ */
 function confetti() {
   const cols = ["#ef5350", "#ffca28", "#66bb6a", "#42a5f5", "#ab47bc", "#ff7043"];
   const host = document.querySelector(".screen.show") || document.body;
@@ -965,7 +988,7 @@ function confetti() {
 }
 async function showResult() {
   show("result");
-  $("resSub").textContent = `${myMain.name} と ぜんぶ かったね!`;
+  $("resSub").textContent = myMain.name + " と ぜんぶ かったね!";
   SE.fanfare(); confetti(); speak("ゆうしょう! おめでとう!");
   setTimeout(confetti, 1500); setTimeout(confetti, 3000);
 }
